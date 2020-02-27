@@ -1,42 +1,50 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
-    <div>
+  <q-page class="flex flex-center row text-h5">
+    <!-- <div class='text-h3'>
       <table>
-      <tr>
-        <th>ID</th>
-        <th>name</th>
-      </tr>
-      <tr v-for="(result, index) in userlist" :key="index">
-        <td>{{result.id}}</td>
-        <td>{{result.name}}</td>
-      </tr>
-    </table>
-    <router-link to="user">test</router-link>
-  </div>
+        <tr>
+          <th>ID</th>
+          <th>name</th>
+        </tr>
+        <tr v-for="(result, index) in userlist" :key="index">
+          <td>{{result.id}}</td>
+          <td>{{result.name}}</td>
+        </tr>
+      </table>
+      <router-link to="user">test</router-link>
+    </div> -->
+    <div class='col-3'>
+      日程調整
+    </div>
+    <div class='col-3'>
+      <q-select filled label="name" v-model="model" :options="userlist"/>
+    </div>
+    <div class='col-4 q-pa-md q-gutter-sm'>
+      <q-btn color="secondary" @click="toChousei" label="調整する" :disable='!model'/>
+    </div>
   </q-page>
 
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   name: 'PageIndex',
   data() {
     return {
       userlist: Array,
+      model: null,
     };
   },
 
   async mounted() {
-    this.userlist = await this.initForm();
+    const response = await this.initForm();
+    this.userlist = _.map(response, 'name');
   },
 
   methods: {
     async initForm() {
-      console.log(process.env);
       const response = await window.fetch(process.env.VUE_APP_BASE_URL, {
         method: 'GET',
         headers: {
@@ -45,6 +53,9 @@ export default {
         },
       });
       return response.json();
+    },
+    toChousei() {
+      this.$router.push(`user?name=${this.model}`);
     },
   },
 };
