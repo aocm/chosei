@@ -1,0 +1,42 @@
+---
+version: '2'
+
+services:
+  chousei-db:
+    image: mysql:8
+    container_name: chousei-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chousei
+      MYSQL_USER: chousei
+      MYSQL_PASSWORD: chousei
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+  chousei-api:
+    build: ./api
+    image: chousei-api
+    container_name: chousei-api
+    environment:
+      NODE_ENV: production
+    hostname: "chousei-api"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - chousei-db
+
+  chousei-front:
+    build: ./chousei-front
+    image: chousei-front
+    container_name: chousei-front
+    hostname: "chouseiFront"
+    volumes:
+     - ./chousei-front/dist/spa:/usr/share/nginx/html
+    ports:
+      - "8080:8080"
+    depends_on:
+      - chousei-api

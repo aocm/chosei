@@ -1,0 +1,10 @@
+{
+  "development": {
+    "mode": "development",
+    "server": "localhost"
+  },
+  "production": {
+    "mode": "production",
+    "server": "chousei-db"
+  }
+}
