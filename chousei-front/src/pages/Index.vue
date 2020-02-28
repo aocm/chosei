@@ -1,58 +1,66 @@
 <template>
-  <q-page class="flex flex-center row text-h5">
-    <!-- <div class='text-h3'>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>name</th>
-        </tr>
-        <tr v-for="(result, index) in userlist" :key="index">
-          <td>{{result.id}}</td>
-          <td>{{result.name}}</td>
-        </tr>
-      </table>
-      <router-link to="user">test</router-link>
-    </div> -->
-    <div class='col-3'>
-      日程調整
-    </div>
-    <div class='col-3'>
-      <q-select filled label="name" v-model="model" :options="userlist"/>
-    </div>
-    <div class='col-4 q-pa-md q-gutter-sm'>
-      <q-btn color="secondary" @click="toChousei" label="調整する" :disable='!model'/>
-    </div>
+  <q-page>
+    <EvenlyArticle>
+      <template v-slot:head>日程調整</template>
+      <template v-slot:body>
+        <div class='col-6'>
+          <q-select filled label="name" v-model="model" :options="userlist" @input="toChousei"/>
+        </div>
+      </template>
+    </EvenlyArticle>
+    <EvenlyArticle>
+      <template v-slot:head>候補日</template>
+      <template v-slot:body>
+        <span v-for="(data, index) in candidateDate" :key="index">
+          {{data}}
+        </span>
+      </template>
+    </EvenlyArticle>
+    <EvenlyArticle>
+      <template v-slot:head>回答者</template>
+      <template v-slot:body>
+        <span v-for="(data, index) in respondent" :key="index">
+          {{data}}
+        </span>
+      </template>
+    </EvenlyArticle>
   </q-page>
 
 </template>
 
 <script>
 import _ from 'lodash';
+import EvenlyArticle from '../layouts/evenly-article';
+import { chouseiApi } from '../module/Api';
 
 export default {
   name: 'PageIndex',
+  components: {
+    EvenlyArticle,
+  },
   data() {
     return {
       userlist: Array,
+      candidateDate: Array,
+      respondent: Array,
       model: null,
     };
   },
 
-  async mounted() {
-    const response = await this.initForm();
-    this.userlist = _.map(response, 'name');
+  mounted() {
+    this.initForm();
   },
 
   methods: {
     async initForm() {
-      const response = await window.fetch(process.env.VUE_APP_BASE_URL, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'csrf', // csrf header
-          'Content-Type': 'application/json',
-        },
-      });
-      return response.json();
+      const userlist = await chouseiApi.getUser();
+      const candidateData = {
+        candidate_date: [1, 2, 3],
+        respondent: ['a', 'b', 'c'],
+      };
+      this.userlist = _.map(userlist, 'name');
+      this.candidateDate = candidateData.candidate_date;
+      this.respondent = candidateData.respondent;
     },
     toChousei() {
       this.$router.push(`user?name=${this.model}`);

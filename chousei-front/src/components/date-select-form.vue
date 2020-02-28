@@ -1,17 +1,19 @@
 <template>
   <div>
-    <div v-for="(data, index) in datalist" :key='index' class="q-pa-md items-center row">
-      <div class='col-5 text-h5'>
+    <div v-for="(data, index) in datalist" :key='index' class="items-center row">
+      <div class='col-5 text-subtitle1'>
         {{data.date}}
       </div>
       <div class='col-4'>
         <q-btn-toggle
           v-model="data.choise"
           toggle-color="primary"
+          no-caps
+          unelevated
           :options="[
-            {slot: 'circle', value: 'circle'},
-            {slot: 'triangle', value: 'triangle'},
-            {slot: 'cross', value: 'cross'}
+            {slot: 'circle', value: 2},
+            {slot: 'triangle', value: 1},
+            {slot: 'cross', value: 0}
           ]"
         >
           <template v-slot:circle>
