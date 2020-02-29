@@ -11,10 +11,6 @@ class Api {
       return await window.fetch(url, {
         method: 'GET',
         headers: this.httpHeaders(),
-      }).then((d) => {
-        console.log('d1');
-        console.log(d);
-        return d;
       });
     } catch (e) {
       console.log(e);
@@ -23,26 +19,41 @@ class Api {
   };
 
   static fetchPost = async (url, data) => {
-    await window.fetch(url, {
-      method: 'POST',
-      headers: this.httpHeaders(),
-      body: JSON.stringify(data),
-    });
+    try {
+      return await window.fetch(url, {
+        method: 'POST',
+        headers: this.httpHeaders(),
+        body: JSON.stringify(data),
+      });
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   };
 
   static fetchPut = async (url, data) => {
-    await window.fetch(url, {
-      method: 'PUT',
-      headers: this.httpHeaders(),
-      body: JSON.stringify(data),
-    });
+    try {
+      return await window.fetch(url, {
+        method: 'PUT',
+        headers: this.httpHeaders(),
+        body: JSON.stringify(data),
+      });
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   };
 
   static fetchDelete = async (url) => {
-    await window.fetch(url, {
-      method: 'DELETE',
-      headers: this.httpHeaders(),
-    });
+    try {
+      return await window.fetch(url, {
+        method: 'DELETE',
+        headers: this.httpHeaders(),
+      });
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   };
 }
 

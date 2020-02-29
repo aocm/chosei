@@ -1,0 +1,8 @@
+{
+  "development": {
+    "url": "mysql://chousei:chousei@localhost:3306/chousei"
+  },
+  "production": {
+    "url": "mysql://chousei:chousei@chousei-db:3306/chousei"
+  }
+}

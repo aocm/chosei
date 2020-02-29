@@ -1,11 +1,11 @@
 ---- drop ----
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `candidate_date`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `candidate_dates`;
 DROP TABLE IF EXISTS `candidate_date_status`;
 DROP TABLE IF EXISTS `lottery_status`;
 
 ---- create ----
-create table IF not exists `user`
+create table IF not exists `users`
 (
  `id`               INT(20) AUTO_INCREMENT,
  `name`             VARCHAR(20) NOT NULL,
@@ -13,15 +13,15 @@ create table IF not exists `user`
  `updated_at`       Datetime DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-create table IF not exists `candidate_date`
+create table IF not exists `candidate_dates`
 (
  `id`               INT(20) AUTO_INCREMENT,
- `candidate_date`   VARCHAR(20) NOT NULL,
+ `candidate_date`   Datetime NOT NULL,
  `created_at`       Datetime DEFAULT NULL,
  `updated_at`       Datetime DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-create table IF not exists `candidate_date_status`
+create table IF not exists `candidate_date_statuses`
 (
  `id`               INT(20) AUTO_INCREMENT,
  `user_id`          INT(20) NOT NULL,
@@ -31,7 +31,7 @@ create table IF not exists `candidate_date_status`
  `updated_at`       Datetime DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-create table IF not exists `lottery_status`
+create table IF not exists `lottery_statuses`
 (
  `id`               INT(20) AUTO_INCREMENT,
  `candidate_date_id` INT(20) NOT NULL,
