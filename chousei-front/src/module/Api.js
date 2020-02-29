@@ -65,5 +65,5 @@ API_CONFIG.BASE_URL = process.env.VUE_APP_BASE_URL;
  * ****************** */
 
 export const chouseiApi = {
-  getUser: () => Api.fetchGet(API_CONFIG.BASE_URL).then((d) => Api.toJson(d)),
+  getUser: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/user`).then((d) => Api.toJson(d)),
 };

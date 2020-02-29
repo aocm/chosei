@@ -1,28 +1,30 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('candidate_date', {
+    return queryInterface.createTable('lottery_statuses', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      candidate_date: {
+      candidate_date_id: {
+        type: Sequelize.INTEGER
+      },
+      lottery_status: {
+        type: Sequelize.STRING
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      created_at: {
-        allowNull: true,
-        type: Sequelize.DATE
-      },
       updated_at: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('candidate_date');
+    return queryInterface.dropTable('lottery_statuses');
   }
 };
