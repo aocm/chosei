@@ -24,6 +24,14 @@
         </span>
       </template>
     </EvenlyArticle>
+    <EvenlyArticle>
+      <template v-slot:head>集計結果</template>
+      <template v-slot:body>
+        <div>
+          <q-btn color="primary" @click="toResult" label="確認する"/>
+        </div>
+      </template>
+    </EvenlyArticle>
   </q-page>
 
 </template>
@@ -64,6 +72,9 @@ export default {
     },
     toChousei() {
       this.$router.push(`user?name=${this.model}`);
+    },
+    toResult() {
+      console.log('集計結果画面');
     },
   },
 };
