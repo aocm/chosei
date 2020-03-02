@@ -48,6 +48,7 @@ export default {
   },
   data() {
     return {
+      getUserResponse: Object,
       userlist: Array,
       candidateDate: Array,
       respondent: Array,
@@ -61,17 +62,18 @@ export default {
 
   methods: {
     async initForm() {
-      const userlist = await chouseiApi.getUser();
+      this.getUserResponse = await chouseiApi.getUser();
       const candidateData = {
         candidate_date: [1, 2, 3],
         respondent: ['a', 'b', 'c'],
       };
-      this.userlist = _.map(userlist, 'name');
+      this.userlist = _.map(this.getUserResponse, 'name');
       this.candidateDate = candidateData.candidate_date;
       this.respondent = candidateData.respondent;
     },
     toChousei() {
-      this.$router.push(`user?name=${this.model}`);
+      const userId = _.find(this.getUserResponse, (user) => _.includes(user.name, this.model)).id;
+      this.$router.push(`user?id=${userId}`);
     },
     toResult() {
       console.log('集計結果画面');
