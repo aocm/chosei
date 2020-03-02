@@ -86,7 +86,12 @@ module.exports = function (ctx) {
     devServer: {
       https: false,
       port: 8081,
-      open: true // opens browser window automatically
+      host: 'localhost',
+      open: true, // opens browser window automatically
+      proxy: [{
+        path: '/mng/*',
+        target: `http://localhost:3000`
+      }],
     },
 
     // animations: 'all', // --- includes all animations

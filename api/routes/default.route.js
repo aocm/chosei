@@ -4,10 +4,11 @@ module.exports = function (app) {
   const candidateDateController = require('../controllers/candidateDate.controller');
   const candidateDateStatusController = require('../controllers/candidateDateStatus.controller');
   const lotteryStatus = require('../controllers/lotteryStatus.controller');
-  const userAPI = '/user'
-  const dateAPI = '/date'
-  const dateStatusAPI = '/dateStatus'
-  const lotteryStatusAPI = '/lotteryStatus'
+  const basePath = '/mng'
+  const userAPI = `${basePath}/user`
+  const dateAPI = `${basePath}/date`
+  const dateStatusAPI = `${basePath}/dateStatus`
+  const lotteryStatusAPI = `${basePath}/lotteryStatus`
 
   // userAPI
   app.post(userAPI, userController.create);
