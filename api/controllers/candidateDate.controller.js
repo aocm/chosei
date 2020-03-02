@@ -24,6 +24,37 @@ module.exports = {
         res.send(data);
       })
   },
+  findUserSetData(req, res) {
+    // 今月の候補日を取得
+    // select candidate_month,candidate_date,status,user_id,name from candidate_date 
+    // INNER JOIN candidate_date_status on candidate_date.id = candidate_date_status.candidate_date_id
+    // INNER JOIN user on candidate_date_status.user_id = user.id
+    // where`candidate_date`.`candidate_month` = ':month' AND`candidate_date_status`.`user_id` = ':user_id';
+    candidateDate.findAll({
+      attributes: [
+        'candidate_date'
+      ],
+      where: {
+        candidate_month: req.query.month,
+      },
+      raw: true,
+      include: [
+        {
+          model: db.candidate_date_status,
+          required: true,  // INNER JOIN
+          attributes: [
+            'status'
+          ],
+          where: {
+            user_id: req.query.user
+          },
+        },
+      ]
+    })
+    .then(data => {
+        res.send(data);
+      })
+  },
   update(req, res) {
     candidateDate.update(
       {
