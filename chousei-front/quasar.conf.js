@@ -89,7 +89,7 @@ module.exports = function (ctx) {
       host: 'localhost',
       open: true, // opens browser window automatically
       proxy: [{
-        path: '/mng/*',
+        path: '/mng/',
         target: `http://localhost:3000`
       }],
     },
