@@ -16,6 +16,7 @@ create table IF not exists `user`
 create table IF not exists `candidate_date`
 (
  `id`               INT(20) AUTO_INCREMENT,
+ `candidate_month`   VARCHAR(20) NOT NULL,
  `candidate_date`   Datetime NOT NULL,
  `created_at`       Datetime DEFAULT NULL,
  `updated_at`       Datetime DEFAULT NULL,
