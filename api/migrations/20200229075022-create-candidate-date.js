@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      candidate_month: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       created_at: {
         allowNull: true,
         type: Sequelize.DATE

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   candidate_date.associate = function(models) {
     // associations can be defined here
+    candidate_date.hasMany(models.candidate_date_status, { foreignKey: 'candidate_date_id' });
   };
   return candidate_date;
 };
