@@ -2,11 +2,11 @@
   <div>
     <div v-for="(data, index) in datalist" :key='index' class="items-center row">
       <div class='col-5 text-subtitle1'>
-        {{data.date}}
+        {{formatDate(data.candidate_date)}}
       </div>
       <div class='col-4'>
         <q-btn-toggle
-          v-model="data.choise"
+          v-model="data['candidate_date_statuses.status']"
           toggle-color="primary"
           no-caps
           unelevated
@@ -44,6 +44,13 @@ export default {
   name: 'date-select-form',
   props: {
     datalist: Array,
+  },
+
+  methods: {
+    formatDate: (date) => {
+      const options = { yaer: 'long', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleString('ja-JP', options);
+    },
   },
 
   watch: {

@@ -73,4 +73,5 @@ API_CONFIG.BASE_URL = `${window.location.origin}/mng`;
 
 export const chouseiApi = {
   getUser: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/user`).then((d) => Api.toJson(d)),
+  getCandidateDate: (where) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/user`, where).then((d) => Api.toJson(d)),
 };

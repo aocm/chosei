@@ -72,8 +72,8 @@ export default {
       this.respondent = candidateData.respondent;
     },
     toChousei() {
-      const userId = _.find(this.getUserResponse, (user) => _.includes(user.name, this.model)).id;
-      this.$router.push(`user?id=${userId}`);
+      const userdata = _.find(this.getUserResponse, (user) => _.includes(user.name, this.model));
+      this.$router.push({ path: 'user', query: userdata });
     },
     toResult() {
       console.log('集計結果画面');
