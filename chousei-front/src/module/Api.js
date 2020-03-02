@@ -1,4 +1,10 @@
+import querystring from 'querystring';
+import is from 'is_js';
+
 class Api {
+  static makeGetUrl
+    = (base, where) => base + (is.empty(where) ? '' : `?${querystring.stringify(where)}`);
+
   static httpHeaders = () => ({
     'X-Requested-With': 'csrf', // csrf header
     'Content-Type': 'application/json',
@@ -6,9 +12,10 @@ class Api {
 
   static toJson = (response) => response.json();
 
-  static fetchGet = async (url) => {
+  static fetchGet = async (base, where = {}) => {
     try {
       return await window.fetch(url, {
+      return await window.fetch(this.makeGetUrl(base, where), {
         method: 'GET',
         headers: this.httpHeaders(),
       });
