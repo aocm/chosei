@@ -1,3 +1,5 @@
+SET CHARSET UTF8;
+
 ---- drop ----
 DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `candidate_dates`;
