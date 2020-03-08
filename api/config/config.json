@@ -1,8 +1,10 @@
 {
   "development": {
-    "url": "mysql://chousei:chousei@localhost:3306/chousei"
+    "url": "mysql://chousei:chousei@localhost:3306/chousei",
+    "loggerLevel": "debug"
   },
   "production": {
-    "url": "mysql://chousei:chousei@chousei-db:3306/chousei"
+    "url": "mysql://chousei:chousei@chousei-db:3306/chousei",
+    "loggerLevel": "info"
   }
 }

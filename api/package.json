@@ -9,6 +9,7 @@
   "author": "Bigtree Technology & Consulting Ltd.",
   "dependencies": {
     "express": "^4.17.1",
+    "log4js": "^6.1.2",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.5"
   }
