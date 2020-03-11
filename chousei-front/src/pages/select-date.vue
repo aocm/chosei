@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import DateSelectForm from '../components/date-select-form';
 import EvenlyArticle from '../layouts/evenly-article';
 import { chouseiApi } from '../module/Api';
@@ -56,9 +57,25 @@ export default {
     updateMessage(choise) {
       this.choise = choise;
     },
-    toChousei() {
-      console.log('項目入力API');
+    async toChousei() {
+      console.log(this.getPatchData());
+      const res = await chouseiApi.patchCandidateDateStatus(this.getQuery.id, this.getPatchData());
+      console.log(res);
       this.$router.push('/');
+    },
+    async doChousei() {
+      await chouseiApi.patchCandidateDateStatus(this.getQuery.id, this.getPatchData());
+    },
+    getPatchData() {
+      const localCandidateDates = this.candidateDates;
+      const getStatusIds = function (status) {
+        return _.map(localCandidateDates.filter((o) => o['candidate_date_statuses.status'] === status), 'candidate_date_statuses.id');
+      };
+      return {
+        okStatusIds: getStatusIds(2),
+        sosoStatusIds: getStatusIds(1),
+        badStatusIds: getStatusIds(0),
+      };
     },
   },
 };
