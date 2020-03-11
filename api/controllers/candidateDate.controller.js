@@ -1,5 +1,6 @@
 const db = require('../models/index.js');
 const candidateDate = db.candidate_date;
+const candidateDateStatus = db.candidate_date_status;
 
 module.exports = {
   create(req, res) {
@@ -24,12 +25,79 @@ module.exports = {
         res.send(data);
       })
   },
-  findUserSetData(req, res) {
-    // 今月の候補日を取得
-    // select candidate_month,candidate_date,status,user_id,name from candidate_date 
-    // INNER JOIN candidate_date_status on candidate_date.id = candidate_date_status.candidate_date_id
-    // INNER JOIN user on candidate_date_status.user_id = user.id
-    // where`candidate_date`.`candidate_month` = ':month' AND`candidate_date_status`.`user_id` = ':user_id';
+  findCandidateDate(req, res) {
+    candidateDate.findAll({
+      attributes: [
+        'id',
+      ],
+      where: {
+        candidate_month: req.query.month,
+      },
+      raw: true,
+      include: [
+        {
+          model: db.candidate_date_status,
+          attributes: [
+            'id',
+            'candidate_date_id',
+            [db.sequelize.fn('COUNT', db.sequelize.col('status')), 'status_id_count']
+          ],
+          group: ['candidate_date_id','status'],
+        },
+      ]
+    })
+      .then(data => {
+        res.send(data);
+      })
+  },
+  async findUserSetData(req, res) {
+    db.logger.info('start findUserSetDataAPI');
+    // 今月の日程調整データがあるかfind
+    await candidateDate.findOne({
+      where: {
+        candidate_month: req.query.month,
+      },
+      raw: true,
+      include: [
+        {
+          model: db.candidate_date_status,
+          required: true,  // INNER JOIN
+          where: {
+            user_id: req.query.user
+          },
+        },
+      ]
+    }).then(async findData => {
+      if (!findData) {
+        // 日程調整していなかった場合、新規データを入れる
+        await candidateDate.findAll({
+          attributes: [
+            'id'
+          ],
+          where: {
+            candidate_month: req.query.month,
+          },
+          raw: true,
+        })
+          .then(async dateIds => {
+            db.logger.debug(dateIds);
+            await Promise.all(dateIds.map(async idObject => {
+              await candidateDateStatus.create({
+                user_id: req.query.user,
+                candidate_date_id: idObject.id,
+                status: 1,
+                created_at: new Date(),
+                updated_at: new Date(),
+              })
+            }))
+            db.logger.debug('insert date');
+          })
+      } else {
+        db.logger.debug('update date');
+      }
+    })
+
+    // 日程調整用データを返却
     candidateDate.findAll({
       attributes: [
         'candidate_date'
@@ -43,15 +111,20 @@ module.exports = {
           model: db.candidate_date_status,
           required: true,  // INNER JOIN
           attributes: [
+            'id',
             'status'
           ],
           where: {
             user_id: req.query.user
           },
         },
+      ],
+      order: [
+        ['id', 'asc'],
       ]
     })
-    .then(data => {
+      .then(data => {
+        db.logger.info('finish findUserSetDataAPI');
         res.send(data);
       })
   },
