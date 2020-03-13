@@ -14,7 +14,6 @@ class Api {
 
   static fetchGet = async (base, where = {}) => {
     try {
-      return await window.fetch(url, {
       return await window.fetch(this.makeGetUrl(base, where), {
         method: 'GET',
         headers: this.httpHeaders(),

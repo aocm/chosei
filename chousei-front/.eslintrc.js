@@ -37,6 +37,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     'no-param-reassign': 'off',
+    'linebreak-style': 'off',
 
     'import/first': 'off',
     'import/named': 'error',
