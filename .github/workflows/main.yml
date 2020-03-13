@@ -36,7 +36,7 @@ jobs:
         docker-compose build
         docker tag chousei-front $ECR_REGISTRY/$ECR_REPOSITORY_FRONT:$IMAGE_TAG
         docker tag chousei-api $ECR_REGISTRY/$ECR_REPOSITORY_API:$IMAGE_TAG
-        docker tag chousei-db $ECR_REGISTRY/$ECR_REPOSITORY_DB:$IMAGE_TAG
+        docker tag mysql:8 $ECR_REGISTRY/$ECR_REPOSITORY_DB:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONT:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_API:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_DB:$IMAGE_TAG
