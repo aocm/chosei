@@ -16,7 +16,7 @@
         </span>
       </template>
     </EvenlyArticle>
-    <EvenlyArticle>
+    <!-- <EvenlyArticle>
       <template v-slot:head>回答者</template>
       <template v-slot:body>
         <span v-for="(data, index) in respondent" :key="index">
@@ -31,7 +31,7 @@
           <q-btn color="primary" @click="toResult" label="確認する"/>
         </div>
       </template>
-    </EvenlyArticle>
+    </EvenlyArticle> -->
   </q-page>
 
 </template>
@@ -39,10 +39,11 @@
 <script>
 import _ from 'lodash';
 import EvenlyArticle from '../layouts/evenly-article';
-import { chouseiApi } from '../module/Api';
+import { chouseiApi } from '../module/api';
+import { getQuaryDate } from '../module/utilityTools';
 
 export default {
-  name: 'PageIndex',
+  name: 'Top',
   components: {
     EvenlyArticle,
   },
@@ -61,19 +62,9 @@ export default {
   },
 
   methods: {
-    /**
-     * クエリパラメータ用日付成型メソッド
-     */
-    getQuaryDate() {
-      const date = new Date();
-      const yaer = date.getFullYear();
-      const month = date.getMonth() + 1;
-      const formatMonth = month < 10 ? `0${month}` : `${month}`;
-      return yaer + formatMonth;
-    },
     async initForm() {
       this.getUserResponse = await chouseiApi.getUser();
-      this.candidateDate = await chouseiApi.getCandidateDate(this.getQuaryDate());
+      this.candidateDate = await chouseiApi.getCandidateDate(getQuaryDate());
       const candidateData = {
         candidate_date: [1, 2, 3],
         respondent: ['a', 'b', 'c'],
