@@ -3,9 +3,9 @@
 $ yarn
 ```
 
-### Start the app
+### Start the app(hotreload)
 ```
-$ node index.js
+$ nodemon index.js
 ```
 
 ## 開発
