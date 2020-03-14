@@ -20,7 +20,7 @@ module.exports = function (app) {
   // dateAPI
   app.post(dateAPI, candidateDateController.create);
   app.get(dateAPI, candidateDateController.findAll);
-  app.get(dateAPI + '/month', candidateDateController.findCandidateDate);
+  app.get(dateAPI + '/month/:month', candidateDateController.findCandidateDate);
   app.get(dateAPI + '/user', candidateDateController.findUserSetData);
   app.patch(dateAPI + '/:id', candidateDateController.update);
   app.delete(dateAPI + '/:id', candidateDateController.delete);

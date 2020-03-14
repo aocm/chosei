@@ -26,28 +26,40 @@ module.exports = {
       })
   },
   findCandidateDate(req, res) {
-    candidateDate.findAll({
-      attributes: [
-        'id',
-      ],
-      where: {
-        candidate_month: req.query.month,
-      },
-      raw: true,
-      include: [
-        {
-          model: db.candidate_date_status,
-          attributes: [
-            'id',
-            'candidate_date_id',
-            [db.sequelize.fn('COUNT', db.sequelize.col('status')), 'status_id_count']
-          ],
-          group: ['candidate_date_id','status'],
-        },
-      ]
-    })
+    db.sequelize.query(
+      'SELECT '
+      +   'T1.candidate_date, '
+      +   'sum(T1.status_count) AS candidate_date_count '
+      + 'FROM '
+      +   '( '
+      +     'SELECT '
+      +       '`candidate_date`.`candidate_date`, '
+      +       '`candidate_date_statuses`.`candidate_date_id` AS`candidate_date_id`, '
+      +       '`candidate_date_statuses`.`status` AS`status`, '
+      +       'COUNT(`candidate_date_statuses`.`status`) AS`status_count` '
+      +   'FROM '
+      +       '`candidate_date` AS`candidate_date` '
+      +       'LEFT JOIN '
+      +       'candidate_date_status AS`candidate_date_statuses` '
+      +       'ON`candidate_date`.`id` = `candidate_date_statuses`.`candidate_date_id` '
+      +   'WHERE '
+      +     '`candidate_date`.`candidate_month` = :month '
+      +   'AND '
+      +       '`candidate_date_statuses`.`status` != 0 '
+      +   'GROUP BY '
+      +     '`candidate_date_statuses`.`status`, '
+      +     '`candidate_date`.`id` '
+      +   ') AS T1 '
+      + 'GROUP BY '
+      +   'T1.candidate_date_id '
+      + 'ORDER BY '
+      +   'candidate_date_count DESC, '
+      +   'T1.candidate_date ASC '
+      + 'LIMIT 3;',
+      { raw: false, replacements: { month: req.params.month } }
+    )
       .then(data => {
-        res.send(data);
+        res.send(data[0]);
       })
   },
   async findUserSetData(req, res) {
