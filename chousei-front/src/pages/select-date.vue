@@ -43,7 +43,7 @@ export default {
   methods: {
     async initForm() {
       const setQuery = { month: this.getQuaryDate(), user: this.getQuery.id };
-      this.candidateDates = await chouseiApi.getCandidateDate(setQuery);
+      this.candidateDates = await chouseiApi.getUserSetData(setQuery);
     },
     /**
      * クエリパラメータ用日付成型メソッド

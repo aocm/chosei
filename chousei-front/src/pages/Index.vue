@@ -12,7 +12,7 @@
       <template v-slot:head>候補日</template>
       <template v-slot:body>
         <span v-for="(data, index) in candidateDate" :key="index">
-          {{data}}
+          {{toLocateDate(data.candidate_date)}}
         </span>
       </template>
     </EvenlyArticle>
@@ -20,7 +20,7 @@
       <template v-slot:head>回答者</template>
       <template v-slot:body>
         <span v-for="(data, index) in respondent" :key="index">
-          {{data}}
+          {{data.candidate_date}}
         </span>
       </template>
     </EvenlyArticle>
@@ -61,14 +61,24 @@ export default {
   },
 
   methods: {
+    /**
+     * クエリパラメータ用日付成型メソッド
+     */
+    getQuaryDate() {
+      const date = new Date();
+      const yaer = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const formatMonth = month < 10 ? `0${month}` : `${month}`;
+      return yaer + formatMonth;
+    },
     async initForm() {
       this.getUserResponse = await chouseiApi.getUser();
+      this.candidateDate = await chouseiApi.getCandidateDate(this.getQuaryDate());
       const candidateData = {
         candidate_date: [1, 2, 3],
         respondent: ['a', 'b', 'c'],
       };
       this.userlist = _.map(this.getUserResponse, 'name');
-      this.candidateDate = candidateData.candidate_date;
       this.respondent = candidateData.respondent;
     },
     toChousei() {
@@ -78,6 +88,7 @@ export default {
     toResult() {
       console.log('集計結果画面');
     },
+    toLocateDate: (date) => new Date(date).toLocaleDateString(),
   },
 };
 </script>
