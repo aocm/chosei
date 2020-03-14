@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "baseUrl": ".",
+    "paths": {
+      "app/*": [
+        "*"
+      ],
+      "config/*": [
+        "config/*"
+      ],
+      "controllers/*": [
+        "controllers/*"
+      ],
+      "migrations/*": [
+        "migrations/*"
+      ],
+      "models/*": [
+        "models/*"
+      ],
+      "routes/*": [
+        "routes/*"
+      ],
+      "service/*": [
+        "service/*"
+      ],
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

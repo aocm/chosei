@@ -42,7 +42,7 @@ export default {
   methods: {
     async initForm() {
       const setQuery = { month: getQuaryDate(), user: this.getQuery.id };
-      this.candidateDates = await chouseiApi.getUserSetData(setQuery);
+      this.candidateDates = await chouseiApi.getUserSetDate(setQuery);
     },
     updateMessage(choise) {
       this.choise = choise;
