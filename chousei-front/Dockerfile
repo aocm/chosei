@@ -7,6 +7,7 @@ COPY package*.json ./
 RUN yarn global add @quasar/cli
 COPY . .
 RUN yarn
+RUN yarn lint
 RUN quasar build
 
 # 本番環境
