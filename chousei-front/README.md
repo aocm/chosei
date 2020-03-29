@@ -28,7 +28,7 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 ## 命名規則
 | 名前 | 書き方 |
 | --- | --- |
-| .vueファイル | スネークケース |
+| .vueファイル | ケバブケース |
 | .jsファイル, メソッド名, 変数名 | キャメルケース |
 
 ## フォルダ構成
