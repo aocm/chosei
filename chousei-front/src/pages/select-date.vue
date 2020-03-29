@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <EvenlyArticle>
-      <template v-slot:head>{{getQuery.name}}さん日程調整</template>
+      <template v-slot:head>{{userName}}さん日程調整</template>
       <template v-slot:body>
         <date-select-form
           :datalist='candidateDates'
@@ -33,6 +33,7 @@ export default {
     return {
       candidateDates: Object,
       getQuery: { id: Number, name: String },
+      userName: this.$store.state.user.userName,
     };
   },
   mounted() {

@@ -74,6 +74,7 @@ export default {
     },
     toChousei() {
       const userdata = _.find(this.getUserResponse, (user) => _.includes(user.name, this.model));
+      this.$store.commit('user/updateUserData', userdata);
       this.$router.push({ path: 'user', query: userdata });
     },
     toResult() {
