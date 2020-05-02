@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'chousei-front/**'
+      - 'chousei-front/src/**'
  
 jobs:
   build:
