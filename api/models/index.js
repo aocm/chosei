@@ -9,7 +9,9 @@ const config = require(__dirname + '/../config/config.json')[env];
 
 const db = {};
 
-let sequelize = new Sequelize(config.url, config);
+const dbUrl = config.url ? config.url : process.env.DATABASE_URL;
+
+let sequelize = new Sequelize(dbUrl, config);
 
 fs
   .readdirSync(__dirname)

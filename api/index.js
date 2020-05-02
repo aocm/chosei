@@ -4,8 +4,10 @@ const http = require('http');
 const models = require('./models/index.js');
 const errorHandler = require('./config/errorHandler.js');
 const app = express();
-const port = 3000;
 const logger = require('log4js').getLogger();
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/config/config.json')[env];
+const port = process.env.PORT || 3000;
 
 app.set('port', port);
 app.use(bodyParser.json());
