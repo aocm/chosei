@@ -1,0 +1,48 @@
+name: Deploy api
+ 
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'api/**'
+ 
+jobs:
+  build:
+ 
+    runs-on: ubuntu-18.04
+    timeout-minutes: 300
+ 
+    steps:
+    - uses: actions/checkout@v1    
+ 
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login 
+      
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web 
+      working-directory: ./api
+
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
+
+    - name: failure
+      if: failure()
+      uses: pullreminders/slack-action@master
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      with:
+        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":sleeping_accommodation:APIデプロイ失敗:sleeping_accommodation:\nhttps://github.com/Taita-ldt/chosei/actions/runs/${{ github.run_id }}\"}'
+
+    - name: success
+      uses: pullreminders/slack-action@master
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      with:
+        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":person_doing_cartwheel:APIデプロイ成功:person_doing_cartwheel:\nhttps://github.com/Taita-ldt/chosei/actions/runs/${{ github.run_id }}\nhttps://taita-ldt.github.io/#/\"}'
