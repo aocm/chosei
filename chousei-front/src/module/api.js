@@ -64,8 +64,7 @@ class Api {
 }
 
 const API_CONFIG = {};
-API_CONFIG.BASE_URL = `${window.location.origin}/mng`;
-
+API_CONFIG.BASE_URL = `${process.env.VUE_APP_BASE_URL}/mng`;
 /** *******************
  * API Settings
  * ****************** */
