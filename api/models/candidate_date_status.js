@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   candidate_date_status.associate = function(models) {
     // associations can be defined here
-    candidate_date_status.belongsTo(models.user, { as: 'user', constraints: false });
+    candidate_date_status.belongsTo(models.chousei_user, { as: 'user', constraints: false });
     candidate_date_status.belongsTo(models.candidate_date, { as: 'candidate_date', constraints: false });
   };
   return candidate_date_status;
