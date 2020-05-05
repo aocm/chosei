@@ -2,5 +2,5 @@ node_modules
 yarn.lock
 package-lock.json
 .DS_Store
-chousei-front/dist
-chousei-front/src-capacitor
+front/dist
+front/src-capacitor

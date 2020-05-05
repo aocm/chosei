@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'chousei-front/src/**'
+      - 'front/src/**'
     tags:
       - deploy_front*
  
@@ -34,7 +34,7 @@ jobs:
         git add .
         git commit -m "Deploy $GITHUB_SHA by GitHub Actions"
         git push https://x-access-token:${ACCESS_TOKEN}@github.com/Taita-ldt/Taita-ldt.github.io.git master
-      working-directory: ./chousei-front
+      working-directory: ./front
 
     - name: failure
       if: failure()

@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Quasar App: chrome",
       "url": "http://localhost:8081",
-      "webRoot": "${workspaceFolder}/chousei-front/src",
+      "webRoot": "${workspaceFolder}/front/src",
       "breakOnLoad": true,
       "sourceMapPathOverrides": {
         "webpack:///./src/*": "${webRoot}/*"

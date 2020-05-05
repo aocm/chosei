@@ -29,7 +29,7 @@ services:
       - chousei-db
 
   chousei-front:
-    build: ./chousei-front
+    build: ./front
     image: chousei-front
     container_name: chousei-front
     hostname: "chouseiFront"
