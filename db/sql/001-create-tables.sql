@@ -1,13 +1,13 @@
 SET CHARSET UTF8;
 
 ---- drop ----
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS chousei_user;
 DROP TABLE IF EXISTS candidate_dates;
 DROP TABLE IF EXISTS candidate_date_status;
 DROP TABLE IF EXISTS lottery_status;
 
 ---- create ----
-create table IF not exists user
+create table IF not exists chousei_user
 (
  id               SERIAL,
  name             VARCHAR NOT NULL,
