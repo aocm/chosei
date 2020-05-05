@@ -9,7 +9,7 @@ const config = require(__dirname + '/../config/config.json')[env];
 
 const db = {};
 
-const dbUrl = config.url ? config.url : process.env.DATABASE_URL;
+const dbUrl = process.env.DATABASE_URL || config.url;
 
 let sequelize = new Sequelize(dbUrl, config);
 
