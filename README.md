@@ -36,7 +36,7 @@ $ quasar -v
 ## Front,API,DBをDockerコンテナで起動する
 初回はimageのpull,コンテナの起動に時間がかかります。
 ```
-$ repository\chosei>docker-compose up -d
+$ repository\chousei>docker-compose up -d
 Starting chousei-db ... done
 Starting chousei-api ... done
 Starting chousei-front ... done

@@ -43,7 +43,7 @@ jobs:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       with:
         # "channel"にSlackチャンネルIDを代入
-        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":sleeping_accommodation:フロントデプロイ失敗:sleeping_accommodation:\nhttps://github.com/Taita-ldt/chosei/actions/runs/${{ github.run_id }}\"}'
+        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":sleeping_accommodation:フロントデプロイ失敗:sleeping_accommodation:\nhttps://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}\"}'
 
     - name: success
       uses: pullreminders/slack-action@master
@@ -51,4 +51,4 @@ jobs:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       with:
         # "channel"にSlackチャンネルIDを代入
-        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":person_doing_cartwheel:フロントデプロイ成功:person_doing_cartwheel:\nhttps://github.com/Taita-ldt/chosei/actions/runs/${{ github.run_id }}\nhttps://taita-ldt.github.io/#/\"}'
+        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":person_doing_cartwheel:フロントデプロイ成功:person_doing_cartwheel:\nhttps://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}\nhttps://taita-ldt.github.io/#/\"}'
