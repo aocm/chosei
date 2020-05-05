@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
+const cors = require('cors');
 const models = require('./models/index.js');
 const errorHandler = require('./config/errorHandler.js');
 const app = express();
@@ -8,9 +9,16 @@ const logger = require('log4js').getLogger();
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/config/config.json')[env];
 const port = process.env.PORT || 3000;
+const corsOptions = {
+  origin: config.arrowFrontUrl,
+  optionsSuccessStatus: 200
+}
 
 app.set('port', port);
 app.use(bodyParser.json());
+
+// cors対策
+app.use(cors(corsOptions));
 
 models.sequelize.sync().then(() => {
   logger.info('Start chousei-api');
