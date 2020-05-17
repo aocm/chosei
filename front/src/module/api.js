@@ -65,6 +65,7 @@ class Api {
 
 const API_CONFIG = {};
 API_CONFIG.BASE_URL = `${process.env.VUE_APP_BASE_URL}/mng`;
+API_CONFIG.AUTH_URL = `${process.env.VUE_APP_AUTH_TEMP_URL}`;
 /** *******************
  * API Settings
  * ****************** */
@@ -74,4 +75,9 @@ export const chouseiApi = {
   getUserSetDate: (where) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/user`, where).then((d) => Api.toJson(d)),
   getCandidateDate: (month) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/month/${month}`).then((d) => Api.toJson(d)),
   patchCandidateDateStatus: (id, data) => Api.fetchPatch(`${API_CONFIG.BASE_URL}/date/${id}`, data),
+};
+
+export const authApi = {
+  authentication: (data) => Api.fetchPost(`${API_CONFIG.AUTH_URL}/auth-api/authentication`, data).then((d) => Api.toJson(d)),
+  checkToken: (data) => Api.fetchPost(`${API_CONFIG.AUTH_URL}/auth-api/check-token`, data).then((d) => Api.toJson(d)),
 };
