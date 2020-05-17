@@ -22,6 +22,7 @@ jobs:
       env:
         ACCESS_TOKEN:  ${{ secrets.CHOUSEI_FRONT_ACCESS_TOKEN }}
         API_URL:  ${{ secrets.API_URL }}
+        AUTH_API_URL:  ${{ secrets.AUTH_API_URL }}
       run: |
         git clone https://x-access-token:${ACCESS_TOKEN}@github.com/Taita-ldt/Taita-ldt.github.io.git
         git config --global user.email "chousei@github.io"
