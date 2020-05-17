@@ -27,6 +27,7 @@ jobs:
         git config --global user.email "chousei@github.io"
         git config --global user.name "chousei"
         sed -i "s|http:\/\/localhost:8080\/api|${API_URL}|" prod.env
+        sed -i "s|http:\/\/localhost:3001|${AUTH_API_URL}|" prod.env
         docker build -t chousei-front .
         docker run --name chousei-front -d chousei-front
         docker cp chousei-front:/usr/share/nginx/html/. ./Taita-ldt.github.io
